@@ -50,6 +50,7 @@ export default function GradeItem({ item }) {
 const styles = StyleSheet.create({
   container: {
     borderTopWidth: 2,
+    borderColor: "rgb(134, 65, 244)",
     marginTop: 15,
     marginLeft: 0,
     marginRight: 0,
@@ -60,12 +61,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 30,
-    color: "black",
+    color: "rgb(134, 65, 244)",
     fontFamily: "AvenirNext-DemiBold",
   },
   instructor: {
     marginTop: 5,
     fontSize: 20,
+    color: "rgb(134, 65, 244)",
     fontFamily: "AvenirNext-Medium",
   },
   grade: {
@@ -74,9 +76,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 20,
     fontFamily: "AvenirNext-DemiBold",
-  },
-  donut: {
-    height: 100,
   },
   left: {
     width: 300,

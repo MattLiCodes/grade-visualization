@@ -194,11 +194,21 @@ class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    fetch("https://gatech.instructure.com/api/v1/courses/132234/quizzes/")
+    var url = "https://gatech.instructure.com/api/v1/courses/132234/quizzes/";
+    var bearer =
+      "Bearer " +
+      "2096~BPhEyyhFFfujlxQeGMewVMvryYJDWlftsmyUQ94fSfEAD5zSmtMUoQuVM7XZdIgl";
+
+    fetch(url, {
+      headers: {
+        Authorization: bearer,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         this.data = json;
-        console.log(this.data);
+        console.log(this.data.length);
       })
       .catch((error) => console.log(error));
   }
