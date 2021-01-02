@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -24,6 +24,28 @@ function CourseScreen({ navigation, route }) {
         100
     );
   }
+
+  // const [scores, setScores] = useState([]);
+  // useEffect(() => {
+  //   var url =
+  //     "https://gatech.instructure.com/api/v1/courses/132234/assignments/";
+  //   var bearer =
+  //     "Bearer " +
+  //     "2096~BPhEyyhFFfujlxQeGMewVMvryYJDWlftsmyUQ94fSfEAD5zSmtMUoQuVM7XZdIgl";
+
+  //   fetch(url, {
+  //     headers: {
+  //       Authorization: bearer,
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       setScores(json);
+  //       console.log(scores.length);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   const Gradient = () => (
     <Defs key={"gradient"}>
@@ -123,3 +145,4 @@ const styles = StyleSheet.create({
 });
 
 export default CourseScreen;
+// 632740
