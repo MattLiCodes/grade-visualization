@@ -24,9 +24,10 @@ export default function GradeItem({ item }) {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.left}>
-        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.name}>{item.id}</Text>
         <Text style={styles.instructor}>
-          {item.date.toLocaleDateString("en-US")}
+          {/* {item.date.toLocaleDateString("en-US")} */}
+          {/* {item.date} */}
         </Text>
       </View>
       <View style={styles.right}>
@@ -34,9 +35,7 @@ export default function GradeItem({ item }) {
           style={[
             styles.grade,
             {
-              color: scale(
-                item.pointsScored.toFixed(2) / item.pointsTotal
-              ).css(),
+              color: scale(item.pointsScored / item.pointsTotal).css(),
             },
           ]}
         >

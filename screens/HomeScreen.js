@@ -9,6 +9,7 @@ class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      pointsTotal: [],
       courseData: [],
       //     {
       //       id: "1",
@@ -196,12 +197,48 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    var url = "https://gatech.instructure.com/api/v1/courses/";
+    var courseurl = "https://gatech.instructure.com/api/v1/courses/";
+    var url =
+      "https://gatech.instructure.com/api/v1/courses/132234/assignments/";
     var bearer =
       "Bearer " +
       "2096~BPhEyyhFFfujlxQeGMewVMvryYJDWlftsmyUQ94fSfEAD5zSmtMUoQuVM7XZdIgl";
-
+    var assignments = [];
+    var count = 0;
     fetch(url, {
+      headers: {
+        Authorization: bearer,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        for (var i = 0; i < json.length; i++) {
+          var id = json[i].id;
+          this.state.pointsTotal.push(json[i].points_possible);
+          fetch(url + id + "/submissions/632740", {
+            headers: {
+              Authorization: bearer,
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response2) => response2.json())
+            .then((json2) => {
+              console.log(this.state.pointsTotal);
+              var assignment = {
+                id: json2.assignment_id,
+                pointsTotal: this.state.pointsTotal[count],
+                pointsScored: json2.score,
+              };
+              count++;
+              assignments.push(assignment);
+              console.log(assignment);
+            })
+            .catch((error) => console.log(error));
+        }
+      });
+
+    fetch(courseurl, {
       headers: {
         Authorization: bearer,
         "Content-Type": "application/json",
@@ -214,55 +251,14 @@ class HomeScreen extends React.Component {
           courses.push({
             id: json[i].id,
             name: json[i].name,
-            assignments: [],
+            assignments: assignments,
           });
-        }
-        for (var j = 0; j < courses.length; j++) {
-          fetch(
-            "https://gatech.instructure.com/api/v1/courses/" +
-              courses[j].id +
-              "/assignments/",
-            {
-              headers: {
-                Authorization: bearer,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-            .then((response) => response.json())
-            .then((json) => {
-              var assignments = [];
-              for (var i = 0; i < json.length; i++) {
-                if (json[i] != undefined) {
-                  assignments.push({
-                    id: json[i].id,
-                    name: json[i].name,
-                  });
-                }
-              }
-              courses[j].assignments = assignments;
-            });
         }
         console.log(JSON.stringify(courses));
         this.setState({ courseData: courses });
       })
       .catch((error) => console.log(error));
   }
-  //   fetch("https://gatech.insructure.com/api/v1/courses/" + this.data[0], {
-  //     headers: {
-  //       Authorization: bearer,
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       for (var f = 0; f < json.length; f++) {
-  //         this.data[i].assignments.push(json[f].id);
-  //         console.log(json[f].id);
-  //       }
-  //     })
-  //     .catch((error) => console.log(error));
-  // }
 
   render(props) {
     return (
