@@ -10,189 +10,9 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       pointsTotal: [],
+      ids: [],
+      pointsScored: [],
       courseData: [],
-      //     {
-      //       id: "1",
-      //       name: "MATH 1554",
-      //       instructor: "V. Da Rocha",
-      //       grade: 75,
-      //       assignments: [
-      //         {
-      //           id: "001",
-      //           name: "HW1",
-      //           date: new Date(2020, 0, 1),
-      //           pointsTotal: 100,
-      //           pointsScored: 100,
-      //         },
-      //         {
-      //           id: "002",
-      //           name: "HW2",
-      //           date: new Date(2020, 1, 4),
-      //           pointsTotal: 30,
-      //           pointsScored: 22.5,
-      //         },
-      //         {
-      //           id: "003",
-      //           name: "HW3",
-      //           date: new Date(2020, 1, 11),
-      //           pointsTotal: 50,
-      //           pointsScored: 48,
-      //         },
-      //         {
-      //           id: "004",
-      //           name: "HW4",
-      //           date: new Date(2020, 2, 9),
-      //           pointsTotal: 80,
-      //           pointsScored: 69,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: "2",
-      //       name: "CHEM 1310",
-      //       instructor: "S. Albright",
-      //       grade: 89,
-      //       assignments: [
-      //         {
-      //           id: "001",
-      //           name: "HW1",
-      //           date: "08-10-20",
-      //           pointsTotal: 100,
-      //           pointsScored: 100,
-      //         },
-      //         {
-      //           id: "002",
-      //           name: "HW2",
-      //           date: "09-15-20",
-      //           pointsTotal: 30,
-      //           pointsScored: 25,
-      //         },
-      //         {
-      //           id: "003",
-      //           name: "HW3",
-      //           date: "10-24-20",
-      //           pointsTotal: 50,
-      //           pointsScored: 48,
-      //         },
-      //         {
-      //           id: "004",
-      //           name: "HW4",
-      //           date: "11-01-20",
-      //           pointsTotal: 80,
-      //           pointsScored: 69,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: "3",
-      //       name: "ENGL 1102",
-      //       instructor: "J. Cohen",
-      //       grade: 95,
-      //       assignments: [
-      //         {
-      //           id: "001",
-      //           name: "HW1",
-      //           date: "08-10-20",
-      //           pointsTotal: 100,
-      //           pointsScored: 100,
-      //         },
-      //         {
-      //           id: "002",
-      //           name: "HW2",
-      //           date: "09-15-20",
-      //           pointsTotal: 30,
-      //           pointsScored: 25,
-      //         },
-      //         {
-      //           id: "003",
-      //           name: "HW3",
-      //           date: "10-24-20",
-      //           pointsTotal: 50,
-      //           pointsScored: 48,
-      //         },
-      //         {
-      //           id: "004",
-      //           name: "HW4",
-      //           date: "11-01-20",
-      //           pointsTotal: 80,
-      //           pointsScored: 69,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: "4",
-      //       name: "FREN 1101",
-      //       instructor: "R. LeBlanc",
-      //       grade: 60,
-      //       assignments: [
-      //         {
-      //           id: "001",
-      //           name: "HW1",
-      //           date: "08-10-20",
-      //           pointsTotal: 100,
-      //           pointsScored: 100,
-      //         },
-      //         {
-      //           id: "002",
-      //           name: "HW2",
-      //           date: "09-15-20",
-      //           pointsTotal: 30,
-      //           pointsScored: 25,
-      //         },
-      //         {
-      //           id: "003",
-      //           name: "HW3",
-      //           date: "10-24-20",
-      //           pointsTotal: 50,
-      //           pointsScored: 48,
-      //         },
-      //         {
-      //           id: "004",
-      //           name: "HW4",
-      //           date: "11-01-20",
-      //           pointsTotal: 80,
-      //           pointsScored: 69,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: "5",
-      //       name: "PSYCH 1101",
-      //       instructor: "D. Leader",
-      //       grade: 100,
-      //       assignments: [
-      //         {
-      //           id: "001",
-      //           name: "HW1",
-      //           date: "08-10-20",
-      //           pointsTotal: 100,
-      //           pointsScored: 100,
-      //         },
-      //         {
-      //           id: "002",
-      //           name: "HW2",
-      //           date: "09-15-20",
-      //           pointsTotal: 30,
-      //           pointsScored: 25,
-      //         },
-      //         {
-      //           id: "003",
-      //           name: "HW3",
-      //           date: "10-24-20",
-      //           pointsTotal: 50,
-      //           pointsScored: 48,
-      //         },
-      //         {
-      //           id: "004",
-      //           name: "HW4",
-      //           date: "11-01-20",
-      //           pointsTotal: 80,
-      //           pointsScored: 69,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // };
     };
   }
 
@@ -214,9 +34,9 @@ class HomeScreen extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         for (var i = 0; i < json.length; i++) {
-          var id = json[i].id;
           this.state.pointsTotal.push(json[i].points_possible);
-          fetch(url + id + "/submissions/632740", {
+          this.state.ids.push(json[i].id);
+          fetch(url + json[i].id + "/submissions/632740", {
             headers: {
               Authorization: bearer,
               "Content-Type": "application/json",
@@ -224,18 +44,14 @@ class HomeScreen extends React.Component {
           })
             .then((response2) => response2.json())
             .then((json2) => {
-              console.log(this.state.pointsTotal);
-              var assignment = {
-                id: json2.assignment_id,
-                pointsTotal: this.state.pointsTotal[count],
-                pointsScored: json2.score,
-              };
-              count++;
-              assignments.push(assignment);
-              console.log(assignment);
+              var score = json2.score;
+              this.state.pointsScored.push(score);
+              console.log(this.state.pointsScored);
             })
             .catch((error) => console.log(error));
         }
+
+        console.log(assignments);
       });
 
     fetch(courseurl, {
@@ -254,7 +70,6 @@ class HomeScreen extends React.Component {
             assignments: assignments,
           });
         }
-        console.log(JSON.stringify(courses));
         this.setState({ courseData: courses });
       })
       .catch((error) => console.log(error));
